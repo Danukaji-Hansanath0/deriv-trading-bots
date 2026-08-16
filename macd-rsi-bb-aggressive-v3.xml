@@ -53,6 +53,49 @@
 
   <block type="before_purchase" id="before_purchase_block" x="0" y="400">
     <statement name="BEFOREPURCHASE_STACK">
+      <block type="controls_if" id="init_variables">
+        <value name="IF0">
+          <block type="logic_compare" id="check_init">
+            <field name="OP">EQ</field>
+            <value name="A">
+              <block type="variables_get" id="get_losscount_init">
+                <field name="VAR" variabletype="">LossCount</field>
+              </block>
+            </value>
+            <value name="B">
+              <block type="logic_null" id="null_check"></block>
+            </value>
+          </block>
+        </value>
+        <statement name="DO0">
+          <block type="variables_set" id="set_initial_losscount">
+            <field name="VAR" variabletype="">LossCount</field>
+            <value name="VALUE">
+              <block type="math_number" id="zero_init">
+                <field name="NUM">0</field>
+              </block>
+            </value>
+            <next>
+              <block type="variables_set" id="set_initial_stake">
+                <field name="VAR" variabletype="">CurrentStake</field>
+                <value name="VALUE">
+                  <block type="math_number" id="initial_stake_val">
+                    <field name="NUM">0.50</field>
+                  </block>
+                </value>
+              </block>
+            </next>
+          </block>
+        </statement>
+        <next>
+          <block type="variables_set" id="update_trade_amount">
+            <field name="VAR" variabletype="">Amount</field>
+            <value name="VALUE">
+              <block type="variables_get" id="get_current_stake">
+                <field name="VAR" variabletype="">CurrentStake</field>
+              </block>
+            </value>
+            <next>
       <block type="controls_if" id="signal_check">
         <mutation else="1"></mutation>
         <value name="IF0">
@@ -375,6 +418,10 @@
                   <block type="trade_again" id="continue_trading"></block>
                 </next>
               </block>
+            </next>
+          </block>
+        </next>
+      </block>
             </next>
           </block>
         </next>
