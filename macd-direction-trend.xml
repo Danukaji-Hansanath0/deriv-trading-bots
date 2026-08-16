@@ -9,7 +9,10 @@
     <variable id="gY]L2WrPd.=s(dbVqb(R">closes</variable>
     <variable id=",gJXDsQXkuP8Q|wfCSGw">macdM</variable>
     <variable id="w6z#^eR)X-IItMi|lMy^">macdS</variable>
-</variables>
+
+    <variable id="Max_Martingale_Level">Max_Martingale_Level</variable>
+    <variable id="Martingale_Multiplier">Martingale_Multiplier</variable>
+    <variable id="Daily_Loss_Limit">Daily_Loss_Limit</variable></variables>
   <block type="trade_definition" id="iNH8j]5m2kJ:3U(y_ja." deletable="false" x="0" y="0">
     <statement name="TRADE_OPTIONS">
       <block type="trade_definition_market" id="#h4M%d19C#Pg=MqMUpCJ" deletable="false" movable="false">
@@ -75,6 +78,32 @@
                       <block type="math_number" id="P]}[7vL7b(t;K*R181rF">
                         <field name="NUM">100</field>
                       </block>
+                            <next>
+                              <block type="variables_set" id="set_max_martingale">
+                                <field name="VAR" id="Max_Martingale_Level">Max_Martingale_Level</field>
+                                <value name="VALUE">
+                                  <block type="math_number" id="max_mart_num">
+                                    <field name="NUM">5</field>
+                                  </block>
+                                </value>
+                                <next>
+                                  <block type="variables_set" id="set_mart_multiplier">
+                                    <field name="VAR" id="Martingale_Multiplier">Martingale_Multiplier</field>
+                                    <value name="VALUE">
+                                      <block type="math_number" id="mart_mult_num">
+                                        <field name="NUM">2.1</field>
+                                      </block>
+                                    </value>
+                                    <next>
+                                      <block type="variables_set" id="set_daily_loss">
+                                        <field name="VAR" id="Daily_Loss_Limit">Daily_Loss_Limit</field>
+                                        <value name="VALUE">
+                                          <block type="math_number" id="daily_loss_num">
+                                            <field name="NUM">200</field>
+                                          </block>
+                                        </value>
+                                        <next>
+
                     </value>
                     <next>
                       <block type="variables_set" id="viU,BHpA%%;.i{-BV?2{">
@@ -369,7 +398,110 @@
             </value>
             
             <statement name="ELSE">
+              <block type="controls_if" id="check_stop_conditions">
+            <mutation xmlns="http://www.w3.org/1999/xhtml" elseif="2" else="1"></mutation>
+            <value name="IF0">
+              <block type="logic_operation" id="check_target_or_stoploss">
+                <field name="OP">OR</field>
+                <value name="A">
+                  <block type="logic_compare" id="check_target_profit_reached">
+                    <field name="OP">GTE</field>
+                    <value name="A">
+                      <block type="variables_get" id="get_total_profit_for_target">
+                        <field name="VAR" id="1]MVFCxN`xPknil1?7u.">Total_Profit</field>
+                      </block>
+                    </value>
+                    <value name="B">
+                      <block type="variables_get" id="get_target_profit_var">
+                        <field name="VAR" id="rlYcT[__d89=3y]{CW+?">Target_Profit</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+                <value name="B">
+                  <block type="logic_compare" id="check_stoploss_reached">
+                    <field name="OP">LTE</field>
+                    <value name="A">
+                      <block type="variables_get" id="get_total_profit_for_stoploss">
+                        <field name="VAR" id="1]MVFCxN`xPknil1?7u.">Total_Profit</field>
+                      </block>
+                    </value>
+                    <value name="B">
+                      <block type="math_arithmetic" id="negate_stoploss_value">
+                        <field name="OP">MULTIPLY</field>
+                        <value name="A">
+                          <shadow type="math_number" id="neg_mult_shadow_a">
+                            <field name="NUM">-1</field>
+                          </shadow>
+                        </value>
+                        <value name="B">
+                          <shadow type="math_number" id="neg_mult_shadow_b">
+                            <field name="NUM">-1</field>
+                          </shadow>
+                          <block type="variables_get" id="get_stoploss_var">
+                            <field name="VAR" id="73u7zZ}p:I@`SH|oysA+">Stop_Loss</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <statement name="DO0">
+              <block type="notify" id="notify_stop_condition">
+                <field name="NOTIFICATION_TYPE">error</field>
+                <field name="NOTIFICATION_SOUND">silent</field>
+                <value name="MESSAGE">
+                  <block type="text" id="stop_msg_text">
+                    <field name="TEXT">Stop condition reached - stopping bot</field>
+                  </block>
+                </value>
+              </block>
+            </statement>
+            <value name="IF1">
+              <block type="logic_compare" id="check_daily_loss_limit">
+                <field name="OP">LTE</field>
+                <value name="A">
+                  <block type="variables_get" id="get_total_profit_daily_check">
+                    <field name="VAR" id="1]MVFCxN`xPknil1?7u.">Total_Profit</field>
+                  </block>
+                </value>
+                <value name="B">
+                  <block type="math_arithmetic" id="negate_daily_loss">
+                    <field name="OP">MULTIPLY</field>
+                    <value name="A">
+                      <shadow type="math_number" id="daily_neg_shadow_a">
+                        <field name="NUM">-1</field>
+                      </shadow>
+                    </value>
+                    <value name="B">
+                      <shadow type="math_number" id="daily_neg_shadow_b">
+                        <field name="NUM">-1</field>
+                      </shadow>
+                      <block type="variables_get" id="get_daily_loss_var">
+                        <field name="VAR" id="Daily_Loss_Limit">Daily_Loss_Limit</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <statement name="DO1">
+              <block type="notify" id="notify_daily_loss">
+                <field name="NOTIFICATION_TYPE">error</field>
+                <field name="NOTIFICATION_SOUND">silent</field>
+                <value name="MESSAGE">
+                  <block type="text" id="daily_loss_msg">
+                    <field name="TEXT">Daily loss limit reached - stopping bot</field>
+                  </block>
+                </value>
+              </block>
+            </statement>
+            <statement name="ELSE">
               <block type="trade_again" id="trade_again_final"></block>
+            </statement>
+          </block>
             </statement>
           </block>
         </next>
