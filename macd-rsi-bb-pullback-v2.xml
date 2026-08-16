@@ -80,35 +80,35 @@
                       <block type="math_number" id="P]}[7vL7b(t;K*R181rF">
                         <field name="NUM">100</field>
                       </block>
-                            <next>
-                              <block type="variables_set" id="set_max_martingale">
-                                <field name="VAR" id="Max_Martingale_Level">Max_Martingale_Level</field>
-                                <value name="VALUE">
-                                  <block type="math_number" id="max_mart_num">
-                                    <field name="NUM">5</field>
-                                  </block>
-                                </value>
-                                <next>
-                                  <block type="variables_set" id="set_mart_multiplier">
-                                    <field name="VAR" id="Martingale_Multiplier">Martingale_Multiplier</field>
-                                    <value name="VALUE">
-                                      <block type="math_number" id="mart_mult_num">
-                                        <field name="NUM">2.1</field>
-                                      </block>
-                                    </value>
-                                    <next>
-                                      <block type="variables_set" id="set_daily_loss">
-                                        <field name="VAR" id="Daily_Loss_Limit">Daily_Loss_Limit</field>
-                                        <value name="VALUE">
-                                          <block type="math_number" id="daily_loss_num">
-                                            <field name="NUM">200</field>
-                                          </block>
-                                        </value>
-                                        <next>
+                            
 
                     </value>
                     <next>
-                      <block type="variables_set" id="viU,BHpA%%;.i{-BV?2{">
+                      <block type="variables_set" id="set_max_martingale">
+                        <field name="VAR" id="Max_Martingale_Level">Max_Martingale_Level</field>
+                        <value name="VALUE">
+                          <block type="math_number" id="max_mart_num">
+                            <field name="NUM">5</field>
+                          </block>
+                        </value>
+                        <next>
+                          <block type="variables_set" id="set_mart_multiplier">
+                            <field name="VAR" id="Martingale_Multiplier">Martingale_Multiplier</field>
+                            <value name="VALUE">
+                              <block type="math_number" id="mart_mult_num">
+                                <field name="NUM">2.1</field>
+                              </block>
+                            </value>
+                            <next>
+                              <block type="variables_set" id="set_daily_loss">
+                                <field name="VAR" id="Daily_Loss_Limit">Daily_Loss_Limit</field>
+                                <value name="VALUE">
+                                  <block type="math_number" id="daily_loss_num">
+                                    <field name="NUM">200</field>
+                                  </block>
+                                </value>
+                                <next>
+<block type="variables_set" id="viU,BHpA%%;.i{-BV?2{">
                         <field name="VAR" id="1]MVFCxN`xPknil1?7u.">Total_Profit</field>
                         <value name="VALUE">
                           <block type="math_number" id="FC;7F2In*aD~iF8Y-f%X">
@@ -144,7 +144,13 @@
                             </next>
                           </block>
                         </next>
+                      </block></next>
                       </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+
                     </next>
                   </block>
                 </next>
@@ -401,7 +407,7 @@
             
             <statement name="ELSE">
               <block type="controls_if" id="check_stop_conditions">
-            <mutation xmlns="http://www.w3.org/1999/xhtml" elseif="2" else="1"></mutation>
+            <mutation xmlns="http://www.w3.org/1999/xhtml" elseif="1" else="1"></mutation>
             <value name="IF0">
               <block type="logic_operation" id="check_target_or_stoploss">
                 <field name="OP">OR</field>

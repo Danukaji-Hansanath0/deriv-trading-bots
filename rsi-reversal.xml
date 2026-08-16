@@ -157,7 +157,15 @@
           </block>
         </next>
       </block>
-    </statement>
+    </next>
+      </block>
+    </next>
+  </block>
+</next>
+</block>
+</next>
+</block>
+</statement>
   </block>
   <block type="during_purchase" id="KMvTW9pcABsF=BH~ylg2" x="3277" y="0">
     <statement name="DURING_PURCHASE_STACK">
@@ -335,7 +343,7 @@
         </statement>
         <next>
           <block type="controls_if" id="check_stop_conditions">
-            <mutation xmlns="http://www.w3.org/1999/xhtml" elseif="2" else="1"></mutation>
+            <mutation xmlns="http://www.w3.org/1999/xhtml" elseif="1" else="1"></mutation>
             <value name="IF0">
               <block type="logic_operation" id="check_target_or_stoploss">
                 <field name="OP">OR</field>
