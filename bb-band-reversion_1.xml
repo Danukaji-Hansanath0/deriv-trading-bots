@@ -1,4 +1,4 @@
-<xml xmlns="https://developers.google.com/blockly/xml" xmlns:html="http://www.w3.org/1999/xhtml" is_dbot="true" collection="false">
+<xml xmlns="https://developers.google.com/blockly/xml" is_dbot="true" collection="false">
   <variables>
     <variable id="cV~-Alq}UZ+O~dGM!1Fk">Initial_Stake</variable>
     <variable id="b{GT|f,n6:nv]_U$%`U2">Current_Stake</variable>
@@ -123,7 +123,7 @@
                             </value>
                             <next>
                               <block type="trade_definition_tradeoptions" id="{`S~tKgv603lxgp0v_vm">
-                                <html:mutation has_first_barrier="false" has_second_barrier="false" has_prediction="false" />
+                                <mutation xmlns="http://www.w3.org/1999/xhtml" has_first_barrier="false" has_second_barrier="false" has_prediction="false"></mutation>
                                 <field name="DURATIONTYPE_LIST">t</field>
                                 <value name="DURATION">
                                   <shadow type="math_number_positive" id="q4h1Uvh7k@{?$B3R(I|@">
@@ -170,7 +170,7 @@
   </block>
   <block type="after_purchase" id="]BjTOU4;8!8ReZR=^U!J" x="3277" y="232">
     <statement name="AFTERPURCHASE_STACK"><block type="controls_if" id="win_loss_check_main">
-        <html:mutation else="1" />
+        <mutation xmlns="http://www.w3.org/1999/xhtml" else="1"></mutation>
         <value name="IF0">
           <block type="contract_check_result" id="check_win_result">
             <field name="CHECK_RESULT">win</field>
@@ -255,7 +255,7 @@
                 </value>
                 <next>
                   <block type="controls_if" id="martingale_logic_block">
-                    <html:mutation else="1" />
+                    <mutation xmlns="http://www.w3.org/1999/xhtml" else="1"></mutation>
                     <value name="IF0">
                       <block type="logic_compare" id="check_max_mart_level">
                         <field name="OP">GTE</field>
@@ -317,7 +317,7 @@
         </statement>
         <next>
           <block type="controls_if" id="check_stop_conditions">
-            <html:mutation elseif="1" else="1" />
+            <mutation xmlns="http://www.w3.org/1999/xhtml" elseif="1" else="1"></mutation>
             <value name="IF0">
               <block type="logic_operation" id="check_target_or_stoploss">
                 <field name="OP">OR</field>
@@ -527,13 +527,13 @@
                     </statement>
                     <next>
                       <block type="controls_if" id="H0M#J]epL~Ut}j[zPBB[">
-                        <html:mutation elseif="1" />
+                        <mutation xmlns="http://www.w3.org/1999/xhtml" elseif="1"></mutation>
                         <value name="IF0">
                           <block type="logic_compare" id="CpOx0AjAA.^+orE,|(1z">
                             <field name="OP">LTE</field>
                             <value name="A">
                               <block type="lists_getIndex" id="KyD))(8@.f=x(5o7F_c=">
-                                <html:mutation statement="false" at="true" />
+                                <mutation xmlns="http://www.w3.org/1999/xhtml" statement="false" at="true"></mutation>
                                 <field name="MODE">GET</field>
                                 <field name="WHERE">FROM_END</field>
                                 <value name="VALUE">
@@ -550,7 +550,7 @@
                             </value>
                             <value name="B">
                               <block type="lists_getIndex" id="%BvJBf*}vBV6Lrw^zN6W">
-                                <html:mutation statement="false" at="true" />
+                                <mutation xmlns="http://www.w3.org/1999/xhtml" statement="false" at="true"></mutation>
                                 <field name="MODE">GET</field>
                                 <field name="WHERE">FROM_END</field>
                                 <value name="VALUE">
@@ -577,7 +577,7 @@
                             <field name="OP">GTE</field>
                             <value name="A">
                               <block type="lists_getIndex" id="jK:m}EYfKv]k_]b;!q6@">
-                                <html:mutation statement="false" at="true" />
+                                <mutation xmlns="http://www.w3.org/1999/xhtml" statement="false" at="true"></mutation>
                                 <field name="MODE">GET</field>
                                 <field name="WHERE">FROM_END</field>
                                 <value name="VALUE">
@@ -594,7 +594,7 @@
                             </value>
                             <value name="B">
                               <block type="lists_getIndex" id="_1LJ_N980M{-8f`1G7z9">
-                                <html:mutation statement="false" at="true" />
+                                <mutation xmlns="http://www.w3.org/1999/xhtml" statement="false" at="true"></mutation>
                                 <field name="MODE">GET</field>
                                 <field name="WHERE">FROM_END</field>
                                 <value name="VALUE">

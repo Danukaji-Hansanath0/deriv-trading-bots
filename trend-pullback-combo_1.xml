@@ -1,4 +1,4 @@
-<xml xmlns="https://developers.google.com/blockly/xml" xmlns:html="http://www.w3.org/1999/xhtml" is_dbot="true" collection="false">
+<xml xmlns="https://developers.google.com/blockly/xml" is_dbot="true" collection="false">
   <variables>
     <variable id="cV~-Alq}UZ+O~dGM!1Fk">Initial_Stake</variable>
     <variable id="b{GT|f,n6:nv]_U$%`U2">Current_Stake</variable>
@@ -7,12 +7,12 @@
     <variable id="GT+e#pM4g%Q[dse0aK`n">Loss_Count</variable>
     <variable id="73u7zZ}p:I@`SH|oysA+">Stop_Loss</variable>
     <variable id="gY]L2WrPd.=s(dbVqb(R">closes</variable>
-    <variable id="alA0mHPEyz^@4NzNu?dM">bbUpper</variable>
-    <variable id="^PDMsj4bDVQD,@2vivXa">bbLower</variable>
-
+    <variable id="|}^]H70kv%zml2m:7#7`">maTrend</variable>
+    <variable id="H^/]D+ccY4xEC8N[x!|T">rsiV</variable>
+  
     <variable id="Max_Martingale_Level">Max_Martingale_Level</variable>
     <variable id="Martingale_Multiplier">Martingale_Multiplier</variable>
-    <variable id="Daily_Loss_Limit">Daily_Loss_Limit</variable></variables>
+    <variable id="Daily_Loss_Limit">Daily_Loss_Limit</variable><variable id="smaValues_id">smaValues</variable><variable id="rsiV_id">rsiV</variable></variables>
   <block type="trade_definition" id="iNH8j]5m2kJ:3U(y_ja." deletable="false" x="0" y="0">
     <statement name="TRADE_OPTIONS">
       <block type="trade_definition_market" id="#h4M%d19C#Pg=MqMUpCJ" deletable="false" movable="false">
@@ -123,7 +123,7 @@
                             </value>
                             <next>
                               <block type="trade_definition_tradeoptions" id="{`S~tKgv603lxgp0v_vm">
-                                <html:mutation has_first_barrier="false" has_second_barrier="false" has_prediction="false" />
+                                <mutation xmlns="http://www.w3.org/1999/xhtml" has_first_barrier="false" has_second_barrier="false" has_prediction="false"></mutation>
                                 <field name="DURATIONTYPE_LIST">t</field>
                                 <value name="DURATION">
                                   <shadow type="math_number_positive" id="q4h1Uvh7k@{?$B3R(I|@">
@@ -170,7 +170,7 @@
   </block>
   <block type="after_purchase" id="]BjTOU4;8!8ReZR=^U!J" x="3277" y="232">
     <statement name="AFTERPURCHASE_STACK"><block type="controls_if" id="win_loss_check_main">
-        <html:mutation else="1" />
+        <mutation xmlns="http://www.w3.org/1999/xhtml" else="1"></mutation>
         <value name="IF0">
           <block type="contract_check_result" id="check_win_result">
             <field name="CHECK_RESULT">win</field>
@@ -255,7 +255,7 @@
                 </value>
                 <next>
                   <block type="controls_if" id="martingale_logic_block">
-                    <html:mutation else="1" />
+                    <mutation xmlns="http://www.w3.org/1999/xhtml" else="1"></mutation>
                     <value name="IF0">
                       <block type="logic_compare" id="check_max_mart_level">
                         <field name="OP">GTE</field>
@@ -317,7 +317,7 @@
         </statement>
         <next>
           <block type="controls_if" id="check_stop_conditions">
-            <html:mutation elseif="1" else="1" />
+            <mutation xmlns="http://www.w3.org/1999/xhtml" elseif="1" else="1"></mutation>
             <value name="IF0">
               <block type="logic_operation" id="check_target_or_stoploss">
                 <field name="OP">OR</field>
@@ -415,216 +415,161 @@
         </next>
       </block></statement></block>
   <block type="before_purchase" id="W86kluQs`k)fMloSU.p)" deletable="false" x="0" y="1802">
-    <statement name="BEFOREPURCHASE_STACK">
-      <block type="variables_set" id="set_closes_var">
+    <statement name="BEFOREPURCHASE_STACK"><block type="variables_set" id="set_closes_var">
         <field name="VAR" id="gY]L2WrPd.=s(dbVqb(R">closes</field>
         <value name="VALUE">
-          <block type="ohlc_values" id="MF6BrVo|(Gg6vbMrbec;">
+          <block type="ohlc_values" id="get_closes_ohlc">
             <field name="OHLCFIELD_LIST">close</field>
             <field name="CANDLEINTERVAL_LIST">60</field>
           </block>
         </value>
         <next>
-          <block type="controls_if" id="!KmHzK*!h!dFL=ph1V0n">
+          <block type="controls_if" id="check_data_ready">
             <value name="IF0">
-              <block type="logic_compare" id="YgKQfmQ+I_;zbVsoiX8*">
+              <block type="logic_compare" id="cmp_closes_len">
                 <field name="OP">GT</field>
                 <value name="A">
-                  <block type="lists_length" id="2LDj-^VsH;ZzHVn{W0!o">
+                  <block type="lists_length" id="len_closes">
                     <value name="VALUE">
-                      <block type="variables_get" id="ZQZiGi.VnLQ,|]|+@O#p">
+                      <block type="variables_get" id="get_closes_for_len">
                         <field name="VAR" id="gY]L2WrPd.=s(dbVqb(R">closes</field>
                       </block>
                     </value>
                   </block>
                 </value>
                 <value name="B">
-                  <block type="math_number" id="/p8=Fg1Oj4~et;_eW~Er">
-                    <field name="NUM">50</field>
-                  </block>
+                  <block type="math_number" id="min_candles"><field name="NUM">50</field></block>
                 </value>
               </block>
             </value>
             <statement name="DO0">
-              <block type="bb_statement" id="N`_}d,9+CR^q]eJ?(5#@">
-                <field name="VARIABLE" id="alA0mHPEyz^@4NzNu?dM">bbUpper</field>
-                <field name="BBRESULT_LIST">1</field>
+              <block type="smaa_statement" id="calc_sma_trend">
+                <field name="VARIABLE" id="smaValues_id">smaValues</field>
                 <statement name="STATEMENT">
-                  <block type="input_list" id="qxpGR[w:wi-?^b__c*;q" deletable="false" movable="false">
+                  <block type="input_list" id="sma_input" deletable="false" movable="false">
                     <value name="INPUT_LIST">
-                      <block type="variables_get" id="!MGeNGReab`dhP?zp;*m">
+                      <block type="variables_get" id="sma_get_closes">
                         <field name="VAR" id="gY]L2WrPd.=s(dbVqb(R">closes</field>
                       </block>
                     </value>
                     <next>
-                      <block type="period" id="W;V3iEx0kOx},UQdqL^L" deletable="false" movable="false">
+                      <block type="period" id="sma_period" deletable="false" movable="false">
                         <value name="PERIOD">
-                          <shadow type="math_number" id="!RvVnpr(mepp~lU;[m{J">
-                            <field name="NUM">20</field>
-                          </shadow>
+                          <shadow type="math_number" id="sma_per_num"><field name="NUM">20</field></shadow>
                         </value>
-                        <next>
-                          <block type="std_dev_multiplier_up" id="t0_M%{vM}vJe^5$Eb~P]" deletable="false" movable="false">
-                            <value name="UPMULTIPLIER">
-                              <shadow type="math_number" id="x-OF9I}gAcmDO.2JXjsq">
-                                <field name="NUM">2</field>
-                              </shadow>
-                            </value>
-                            <next>
-                              <block type="std_dev_multiplier_down" id="_e)[VKve9Qw]XEv9m=m5" deletable="false" movable="false">
-                                <value name="DOWNMULTIPLIER">
-                                  <shadow type="math_number" id="}OM5IFPJC2*[q8|SDW.y">
-                                    <field name="NUM">2</field>
-                                  </shadow>
-                                </value>
-                              </block>
-                            </next>
-                          </block>
-                        </next>
                       </block>
                     </next>
                   </block>
                 </statement>
                 <next>
-                  <block type="bb_statement" id="w47-*t*KY]7i|:s*SJ,P">
-                    <field name="VARIABLE" id="^PDMsj4bDVQD,@2vivXa">bbLower</field>
-                    <field name="BBRESULT_LIST">2</field>
+                  <block type="rsi_statement" id="calc_rsi_pullback">
+                    <field name="VARIABLE" id="rsiV_id">rsiV</field>
                     <statement name="STATEMENT">
-                      <block type="input_list" id="`lbGj4lyGd6PE;Ieqc?y" deletable="false" movable="false">
+                      <block type="input_list" id="rsi_input" deletable="false" movable="false">
                         <value name="INPUT_LIST">
-                          <block type="variables_get" id="YF/K`i_4QRA_o43Lc1kL">
+                          <block type="variables_get" id="rsi_get_closes">
                             <field name="VAR" id="gY]L2WrPd.=s(dbVqb(R">closes</field>
                           </block>
                         </value>
                         <next>
-                          <block type="period" id="ISD_WrdJ(OZ?UT[@zRKA" deletable="false" movable="false">
+                          <block type="period" id="rsi_period" deletable="false" movable="false">
                             <value name="PERIOD">
-                              <shadow type="math_number" id="!+h?d#!kU|B?[%qGB@;n">
-                                <field name="NUM">20</field>
-                              </shadow>
+                              <shadow type="math_number" id="rsi_per_num"><field name="NUM">14</field></shadow>
                             </value>
-                            <next>
-                              <block type="std_dev_multiplier_up" id="E/@C[L!V%%vKqklb/N1u" deletable="false" movable="false">
-                                <value name="UPMULTIPLIER">
-                                  <shadow type="math_number" id="+^?*Mk|q$/=8e7`?@f}S">
-                                    <field name="NUM">2</field>
-                                  </shadow>
-                                </value>
-                                <next>
-                                  <block type="std_dev_multiplier_down" id="Bp6ql[ircPU;Zd6L`J@q" deletable="false" movable="false">
-                                    <value name="DOWNMULTIPLIER">
-                                      <shadow type="math_number" id="NTs]=:*-owkqPjsbWifU">
-                                        <field name="NUM">2</field>
-                                      </shadow>
-                                    </value>
-                                  </block>
-                                </next>
-                              </block>
-                            </next>
                           </block>
                         </next>
                       </block>
                     </statement>
                     <next>
-                      <block type="controls_if" id="H0M#J]epL~Ut}j[zPBB[">
-                        <html:mutation elseif="1" />
+                      <block type="controls_if" id="purchase_conditions">
+                        <mutation xmlns="http://www.w3.org/1999/xhtml" elseif="1"></mutation>
                         <value name="IF0">
-                          <block type="logic_compare" id="CpOx0AjAA.^+orE,|(1z">
-                            <field name="OP">LTE</field>
+                          <block type="logic_operation" id="buy_pullback">
+                            <field name="OP">AND</field>
                             <value name="A">
-                              <block type="lists_getIndex" id="KyD))(8@.f=x(5o7F_c=">
-                                <html:mutation statement="false" at="true" />
-                                <field name="MODE">GET</field>
-                                <field name="WHERE">FROM_END</field>
-                                <value name="VALUE">
-                                  <block type="variables_get" id="n),322B7e!ds**Knmi,/">
-                                    <field name="VAR" id="gY]L2WrPd.=s(dbVqb(R">closes</field>
+                              <block type="logic_compare" id="sma_rising">
+                                <field name="OP">GT</field>
+                                <value name="A">
+                                  <block type="lists_getIndex" id="sma_now">
+                                    <mutation xmlns="http://www.w3.org/1999/xhtml" statement="false" at="true"></mutation>
+                                    <field name="MODE">GET</field><field name="WHERE">FROM_END</field>
+                                    <value name="VALUE"><block type="variables_get" id="sv1"><field name="VAR" id="smaValues_id">smaValues</field></block></value>
+                                    <value name="AT"><block type="math_number" id="si1"><field name="NUM">1</field></block></value>
                                   </block>
                                 </value>
-                                <value name="AT">
-                                  <block type="math_number" id="btQ5{gD-Dg%Dm%Lf*kMM">
-                                    <field name="NUM">1</field>
+                                <value name="B">
+                                  <block type="lists_getIndex" id="sma_prev">
+                                    <mutation xmlns="http://www.w3.org/1999/xhtml" statement="false" at="true"></mutation>
+                                    <field name="MODE">GET</field><field name="WHERE">FROM_END</field>
+                                    <value name="VALUE"><block type="variables_get" id="sv2"><field name="VAR" id="smaValues_id">smaValues</field></block></value>
+                                    <value name="AT"><block type="math_number" id="si2"><field name="NUM">2</field></block></value>
                                   </block>
                                 </value>
                               </block>
                             </value>
                             <value name="B">
-                              <block type="lists_getIndex" id="%BvJBf*}vBV6Lrw^zN6W">
-                                <html:mutation statement="false" at="true" />
-                                <field name="MODE">GET</field>
-                                <field name="WHERE">FROM_END</field>
-                                <value name="VALUE">
-                                  <block type="variables_get" id="zS4}|aGD4(6BV6Ha|G30">
-                                    <field name="VAR" id="^PDMsj4bDVQD,@2vivXa">bbLower</field>
-                                  </block>
+                              <block type="logic_compare" id="rsi_oversold">
+                                <field name="OP">LTE</field>
+                                <value name="A">
+                                  <block type="variables_get" id="rv1"><field name="VAR" id="rsiV_id">rsiV</field></block>
                                 </value>
-                                <value name="AT">
-                                  <block type="math_number" id="zEXBKG[`QR*2%@wvhxM#">
-                                    <field name="NUM">1</field>
-                                  </block>
+                                <value name="B">
+                                  <block type="math_number" id="rsi_low"><field name="NUM">35</field></block>
                                 </value>
                               </block>
                             </value>
                           </block>
                         </value>
                         <statement name="DO0">
-                          <block type="purchase" id="DHBga(am,+5fJ#B[z[`S">
-                            <field name="PURCHASE_LIST">CALLE</field>
-                          </block>
+                          <block type="purchase" id="buy_calle"><field name="PURCHASE_LIST">CALLE</field></block>
                         </statement>
                         <value name="IF1">
-                          <block type="logic_compare" id="Z$d*eTkpjW{stF6v_2;@">
-                            <field name="OP">GTE</field>
+                          <block type="logic_operation" id="sell_pullback">
+                            <field name="OP">AND</field>
                             <value name="A">
-                              <block type="lists_getIndex" id="jK:m}EYfKv]k_]b;!q6@">
-                                <html:mutation statement="false" at="true" />
-                                <field name="MODE">GET</field>
-                                <field name="WHERE">FROM_END</field>
-                                <value name="VALUE">
-                                  <block type="variables_get" id="6lv^VXJ7TB1)!VcO@[,a">
-                                    <field name="VAR" id="gY]L2WrPd.=s(dbVqb(R">closes</field>
+                              <block type="logic_compare" id="sma_falling">
+                                <field name="OP">LT</field>
+                                <value name="A">
+                                  <block type="lists_getIndex" id="sma_now_s">
+                                    <mutation xmlns="http://www.w3.org/1999/xhtml" statement="false" at="true"></mutation>
+                                    <field name="MODE">GET</field><field name="WHERE">FROM_END</field>
+                                    <value name="VALUE"><block type="variables_get" id="sv3"><field name="VAR" id="smaValues_id">smaValues</field></block></value>
+                                    <value name="AT"><block type="math_number" id="si3"><field name="NUM">1</field></block></value>
                                   </block>
                                 </value>
-                                <value name="AT">
-                                  <block type="math_number" id="`Ef=ewy0(-.n`{U|z]Q!">
-                                    <field name="NUM">1</field>
+                                <value name="B">
+                                  <block type="lists_getIndex" id="sma_prev_s">
+                                    <mutation xmlns="http://www.w3.org/1999/xhtml" statement="false" at="true"></mutation>
+                                    <field name="MODE">GET</field><field name="WHERE">FROM_END</field>
+                                    <value name="VALUE"><block type="variables_get" id="sv4"><field name="VAR" id="smaValues_id">smaValues</field></block></value>
+                                    <value name="AT"><block type="math_number" id="si4"><field name="NUM">2</field></block></value>
                                   </block>
                                 </value>
                               </block>
                             </value>
                             <value name="B">
-                              <block type="lists_getIndex" id="_1LJ_N980M{-8f`1G7z9">
-                                <html:mutation statement="false" at="true" />
-                                <field name="MODE">GET</field>
-                                <field name="WHERE">FROM_END</field>
-                                <value name="VALUE">
-                                  <block type="variables_get" id="9s]kQO-%Bez|!Hge^W_Q">
-                                    <field name="VAR" id="alA0mHPEyz^@4NzNu?dM">bbUpper</field>
-                                  </block>
+                              <block type="logic_compare" id="rsi_overbought">
+                                <field name="OP">GTE</field>
+                                <value name="A">
+                                  <block type="variables_get" id="rv2"><field name="VAR" id="rsiV_id">rsiV</field></block>
                                 </value>
-                                <value name="AT">
-                                  <block type="math_number" id=":?~1:A(zA2[]drBl8#]*">
-                                    <field name="NUM">1</field>
-                                  </block>
+                                <value name="B">
+                                  <block type="math_number" id="rsi_high"><field name="NUM">65</field></block>
                                 </value>
                               </block>
                             </value>
                           </block>
                         </value>
                         <statement name="DO1">
-                          <block type="purchase" id="69rD+u5]]Nh)!!ND||.J">
-                            <field name="PURCHASE_LIST">PUTE</field>
-                          </block>
+                          <block type="purchase" id="buy_pute"><field name="PURCHASE_LIST">PUTE</field></block>
                         </statement>
                       </block>
                     </next>
                   </block>
                 </next>
               </block>
-        </statement>
+            </statement>
           </block>
         </next>
-      </block>
-    </statement>
-  </block>
+      </block></statement></block>
 </xml>
